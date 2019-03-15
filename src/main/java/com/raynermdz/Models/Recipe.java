@@ -1,6 +1,7 @@
 package com.raynermdz.Models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Recipe {
@@ -23,8 +24,11 @@ public class Recipe {
   private Byte[] image;
 
   // cascade = CascadeType.ALL means that when a recipe is deleted, the notes are deleted as well.
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.ALL, mappedBy = "recipe")
   private Notes notes;
+
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+  private Set<Ingredients> ingredients;
 
   public Long getId() {
     return id;
@@ -104,5 +108,13 @@ public class Recipe {
 
   public void setNotes(Notes notes) {
     this.notes = notes;
+  }
+
+  public Set<Ingredients> getIngredients() {
+    return ingredients;
+  }
+
+  public void setIngredients(Set<Ingredients> ingredients) {
+    this.ingredients = ingredients;
   }
 }
