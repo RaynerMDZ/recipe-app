@@ -3,6 +3,7 @@ package com.raynermdz.Models;
 import com.raynermdz.enums.Difficulty;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,7 +19,9 @@ public class Recipe {
   private Integer servings;
   private String source;
   private String url;
-  private String direction;
+
+  @Lob
+  private String directions;
   // todo add
   // private Difficulty difficulty;
 
@@ -38,10 +41,10 @@ public class Recipe {
           joinColumns = @JoinColumn(name = "recipe_id"),
           inverseJoinColumns = @JoinColumn(name = "category_id")
   )
-  private Set<Category> categories;
+  private Set<Category> categories = new HashSet<>();
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-  private Set<Ingredients> ingredients;
+  private Set<Ingredient> ingredients = new HashSet<>();
 
   public Long getId() {
     return id;
@@ -99,12 +102,12 @@ public class Recipe {
     this.url = url;
   }
 
-  public String getDirection() {
-    return direction;
+  public String getDirections() {
+    return directions;
   }
 
-  public void setDirection(String direction) {
-    this.direction = direction;
+  public void setDirections(String directions) {
+    this.directions = directions;
   }
 
   public Byte[] getImage() {
@@ -139,11 +142,11 @@ public class Recipe {
     this.categories = categories;
   }
 
-  public Set<Ingredients> getIngredients() {
+  public Set<Ingredient> getIngredients() {
     return ingredients;
   }
 
-  public void setIngredients(Set<Ingredients> ingredients) {
+  public void setIngredients(Set<Ingredient> ingredients) {
     this.ingredients = ingredients;
   }
 }
