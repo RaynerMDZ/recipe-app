@@ -5,12 +5,12 @@ import com.raynermdz.Models.UnitOfMeasure;
 import com.raynermdz.repositories.CategoryRepository;
 import com.raynermdz.repositories.UnitOfMeasureRepository;
 import com.raynermdz.services.RecipeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Optional;
-
+@Slf4j
 @Controller
 public class IndexController {
 
