@@ -21,10 +21,11 @@
                 <div class="panel panel-primary">
 
                         <div class="panel-heading">
-                            <h1>My Recipes!</h1>
+                            <h1 class="panel-title">My Recipes!</h1>
                         </div>
 
                         <div class="panel-body">
+                            <!--if the list coming from the controller is empty. the table won't be rendered.-->
                             <div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
                                 <table class="table table-hover">
                                     <thead class="thead-inverse">
