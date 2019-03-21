@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -15,16 +16,31 @@ import static org.mockito.Mockito.*;
 
 public class RecipeServiceImplTest {
 
-  private RecipeServiceImpl recipeServiceImpl;
+  RecipeServiceImpl service;
 
   @Mock
-  RecipeRepository recipeRepository;
+  RecipeRepository repository;
 
   @Before
   public void setUp() throws Exception {
     MockitoAnnotations.initMocks(this);
 
-    recipeServiceImpl = new RecipeServiceImpl(recipeRepository);
+    service = new RecipeServiceImpl(repository);
+  }
+
+  @Test
+  public void getRecipeByIdTest() throws Exception {
+    Recipe recipe = new Recipe();
+    recipe.setId(1L);
+    Optional<Recipe> recipeOptional = Optional.of(recipe);
+
+    when(repository.findById(anyLong())).thenReturn(recipeOptional);
+
+    Recipe recipeReturned = service.findById(1L);
+
+    assertNotNull("Null recipe returned", recipeReturned);
+    verify(repository, times(1)).findById(anyLong());
+    verify(repository, never()).findAll();
   }
 
   @Test
@@ -36,11 +52,11 @@ public class RecipeServiceImplTest {
 
     recipesData.add(recipe);
 
-    when(recipeRepository.findAll()).thenReturn(recipesData);
+    when(repository.findAll()).thenReturn(recipesData);
 
-    Set<Recipe> recipes = recipeServiceImpl.getRecipes();
+    Set<Recipe> recipes = service.getRecipes();
 
     assertEquals(recipes.size(), 1);
-    verify(recipeRepository, times(1)).findAll();
+    verify(repository, times(1)).findAll();
   }
 }
