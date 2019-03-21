@@ -1,6 +1,6 @@
 package com.raynermdz.repositories;
 
-import com.raynermdz.Models.UnitOfMeasure;
+import com.raynermdz.models.UnitOfMeasure;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

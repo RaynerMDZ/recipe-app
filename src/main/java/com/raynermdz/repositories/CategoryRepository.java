@@ -1,6 +1,6 @@
 package com.raynermdz.repositories;
 
-import com.raynermdz.Models.Category;
+import com.raynermdz.models.Category;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

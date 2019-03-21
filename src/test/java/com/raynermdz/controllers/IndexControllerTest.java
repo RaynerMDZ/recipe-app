@@ -1,6 +1,6 @@
 package com.raynermdz.controllers;
 
-import com.raynermdz.Models.Recipe;
+import com.raynermdz.models.Recipe;
 import com.raynermdz.services.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +15,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

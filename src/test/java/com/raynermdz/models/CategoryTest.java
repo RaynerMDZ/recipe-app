@@ -1,4 +1,4 @@
-package com.raynermdz.Models;
+package com.raynermdz.models;
 
 import org.junit.Before;
 import org.junit.Test;

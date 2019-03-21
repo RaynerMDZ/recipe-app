@@ -1,6 +1,6 @@
 package com.raynermdz.services;
 
-import com.raynermdz.Models.Recipe;
+import com.raynermdz.models.Recipe;
 import com.raynermdz.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

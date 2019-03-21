@@ -1,6 +1,6 @@
 package com.raynermdz.bootstrap;
 
-import com.raynermdz.Models.*;
+import com.raynermdz.models.*;
 import com.raynermdz.enums.Difficulty;
 import com.raynermdz.repositories.CategoryRepository;
 import com.raynermdz.repositories.RecipeRepository;

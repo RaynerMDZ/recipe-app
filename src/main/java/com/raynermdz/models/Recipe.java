@@ -1,4 +1,4 @@
-package com.raynermdz.Models;
+package com.raynermdz.models;
 
 import com.raynermdz.enums.Difficulty;
 import lombok.Data;
