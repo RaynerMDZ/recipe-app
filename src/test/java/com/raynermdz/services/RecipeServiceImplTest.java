@@ -1,5 +1,7 @@
 package com.raynermdz.services;
 
+import com.raynermdz.converters.RecipeCommandToRecipe;
+import com.raynermdz.converters.RecipeToRecipeCommand;
 import com.raynermdz.models.Recipe;
 import com.raynermdz.repositories.RecipeRepository;
 import org.junit.Before;
@@ -16,16 +18,22 @@ import static org.mockito.Mockito.*;
 
 public class RecipeServiceImplTest {
 
-  RecipeServiceImpl service;
+  RecipeServiceImpl recipeService;
 
   @Mock
-  RecipeRepository repository;
+  RecipeRepository recipeRepository;
+
+  @Mock
+  RecipeToRecipeCommand recipeToRecipeCommand;
+
+  @Mock
+  RecipeCommandToRecipe recipeCommandToRecipe;
 
   @Before
   public void setUp() throws Exception {
     MockitoAnnotations.initMocks(this);
 
-    service = new RecipeServiceImpl(repository);
+    recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
   }
 
   @Test
@@ -34,29 +42,28 @@ public class RecipeServiceImplTest {
     recipe.setId(1L);
     Optional<Recipe> recipeOptional = Optional.of(recipe);
 
-    when(repository.findById(anyLong())).thenReturn(recipeOptional);
+    when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
 
-    Recipe recipeReturned = service.findById(1L);
+    Recipe recipeReturned = recipeService.findById(1L);
 
     assertNotNull("Null recipe returned", recipeReturned);
-    verify(repository, times(1)).findById(anyLong());
-    verify(repository, never()).findAll();
+    verify(recipeRepository, times(1)).findById(anyLong());
+    verify(recipeRepository, never()).findAll();
   }
 
   @Test
-  public void getRecipes() throws Exception {
+  public void getRecipesTest() throws Exception {
 
     Recipe recipe = new Recipe();
+    HashSet receipesData = new HashSet();
+    receipesData.add(recipe);
 
-    HashSet<Recipe> recipesData = new HashSet<>();
+    when(recipeService.getRecipes()).thenReturn(receipesData);
 
-    recipesData.add(recipe);
-
-    when(repository.findAll()).thenReturn(recipesData);
-
-    Set<Recipe> recipes = service.getRecipes();
+    Set<Recipe> recipes = recipeService.getRecipes();
 
     assertEquals(recipes.size(), 1);
-    verify(repository, times(1)).findAll();
+    verify(recipeRepository, times(1)).findAll();
+    verify(recipeRepository, never()).findById(anyLong());
   }
 }
