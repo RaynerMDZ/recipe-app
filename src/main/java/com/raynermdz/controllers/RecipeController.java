@@ -1,5 +1,7 @@
 package com.raynermdz.controllers;
 
+import com.raynermdz.models.Ingredient;
+import com.raynermdz.models.Recipe;
 import com.raynermdz.services.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
