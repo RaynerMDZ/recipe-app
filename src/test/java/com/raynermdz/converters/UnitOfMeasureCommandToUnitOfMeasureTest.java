@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class UnitOfMeasureCommandToUnitOfMeasureTest {
 
-  private static final String UNITOFMEASURE = "Unit Of Measure";
+  private static final String UNIT_OF_MEASURE = "Unit Of Measure";
   private static final Long LONG_VALUE = 1L;
 
   UnitOfMeasureCommandToUnitOfMeasure converter;
@@ -30,19 +30,19 @@ public class UnitOfMeasureCommandToUnitOfMeasureTest {
   }
 
   @Test
-  public void convert() {
+  public void convert() throws Exception {
 
     // Given
     UnitOfMeasureCommand command = new UnitOfMeasureCommand();
     command.setId(LONG_VALUE);
-    command.setUnitOfMeasure(UNITOFMEASURE);
+    command.setUnitOfMeasure(UNIT_OF_MEASURE);
 
     // When
-    UnitOfMeasure uom = new UnitOfMeasure();
+    UnitOfMeasure uom = converter.convert(command);
 
     // Then
     assertNotNull(uom);
     assertEquals(LONG_VALUE, uom.getId());
-    assertEquals(UNITOFMEASURE, uom.getUnitOfMeasure());
+    assertEquals(UNIT_OF_MEASURE, uom.getUnitOfMeasure());
   }
 }

@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 
 public class RecipeServiceImplTest {
 
-  RecipeServiceImpl recipeService;
+  private RecipeServiceImpl recipeService;
 
   @Mock
   RecipeRepository recipeRepository;
@@ -55,15 +55,25 @@ public class RecipeServiceImplTest {
   public void getRecipesTest() throws Exception {
 
     Recipe recipe = new Recipe();
-    HashSet receipesData = new HashSet();
-    receipesData.add(recipe);
+    HashSet<Recipe> recipesData = new HashSet<>();
+    recipesData.add(recipe);
 
-    when(recipeService.getRecipes()).thenReturn(receipesData);
+    when(recipeService.getRecipes()).thenReturn(recipesData);
 
     Set<Recipe> recipes = recipeService.getRecipes();
 
     assertEquals(recipes.size(), 1);
     verify(recipeRepository, times(1)).findAll();
     verify(recipeRepository, never()).findById(anyLong());
+  }
+
+  @Test
+  public void testDeleteById() throws Exception {
+    // Given
+    Long idToDelete = 2L;
+    // When
+    recipeService.deleteById(idToDelete);
+    // Then
+    verify(recipeRepository, times(1)).deleteById(anyLong());
   }
 }
