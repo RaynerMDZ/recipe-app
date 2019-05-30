@@ -11,7 +11,7 @@ public class CategoryCommandToCategoryTest {
 
   private static final Long ID_VALUE = 1L;
   private static final String DESCRIPTION = "description";
-  private CategoryCommandToCategory converter;
+  CategoryCommandToCategory converter;
 
   @Before
   public void setUp() throws Exception {
@@ -42,4 +42,5 @@ public class CategoryCommandToCategoryTest {
     assertEquals(ID_VALUE, category.getId());
     assertEquals(DESCRIPTION, category.getDescription());
   }
+
 }

@@ -25,26 +25,23 @@ public class Recipe {
   @Lob
   private String directions;
 
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+  private Set<Ingredient> ingredients = new HashSet<>();
+
   @Lob
   private Byte[] image;
 
   @Enumerated(value = EnumType.STRING)
   private Difficulty difficulty;
 
-  // cascade = CascadeType.ALL means that when a recipe is deleted, the notes are deleted as well.
-  @OneToOne(cascade = CascadeType.ALL, mappedBy = "recipe")
+  @OneToOne(cascade = CascadeType.ALL)
   private Notes notes;
 
   @ManyToMany
-  @JoinTable(
-          name = "recipe_category",
+  @JoinTable(name = "recipe_category",
           joinColumns = @JoinColumn(name = "recipe_id"),
-          inverseJoinColumns = @JoinColumn(name = "category_id")
-  )
+          inverseJoinColumns = @JoinColumn(name = "category_id"))
   private Set<Category> categories = new HashSet<>();
-
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-  private Set<Ingredient> ingredients = new HashSet<>();
 
   public void setNotes(Notes notes) {
     if (notes != null) {
@@ -53,7 +50,7 @@ public class Recipe {
     }
   }
 
-  public Recipe addIngredient(Ingredient ingredient) {
+  public Recipe addIngredient(Ingredient ingredient){
     ingredient.setRecipe(this);
     this.ingredients.add(ingredient);
     return this;

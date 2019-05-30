@@ -21,9 +21,7 @@ public class RecipeServiceImpl implements RecipeService {
   private final RecipeCommandToRecipe recipeCommandToRecipe;
   private final RecipeToRecipeCommand recipeToRecipeCommand;
 
-  public RecipeServiceImpl(RecipeRepository recipeRepository,
-                           RecipeCommandToRecipe recipeCommandToRecipe,
-                           RecipeToRecipeCommand recipeToRecipeCommand) {
+  public RecipeServiceImpl(RecipeRepository recipeRepository, RecipeCommandToRecipe recipeCommandToRecipe, RecipeToRecipeCommand recipeToRecipeCommand) {
     this.recipeRepository = recipeRepository;
     this.recipeCommandToRecipe = recipeCommandToRecipe;
     this.recipeToRecipeCommand = recipeToRecipeCommand;
@@ -31,19 +29,17 @@ public class RecipeServiceImpl implements RecipeService {
 
   @Override
   public Set<Recipe> getRecipes() {
-
     log.debug("I'm in the service");
 
-    Set<Recipe> recipes = new HashSet<>();
-
-    recipeRepository.findAll().iterator().forEachRemaining(recipes::add);
-
-    return recipes;
+    Set<Recipe> recipeSet = new HashSet<>();
+    recipeRepository.findAll().iterator().forEachRemaining(recipeSet::add);
+    return recipeSet;
   }
 
   @Override
-  public Recipe findById(Long id) {
-    Optional<Recipe> recipeOptional = recipeRepository.findById(id);
+  public Recipe findById(Long l) {
+
+    Optional<Recipe> recipeOptional = recipeRepository.findById(l);
 
     if (!recipeOptional.isPresent()) {
       throw new RuntimeException("Recipe Not Found!");
@@ -54,29 +50,22 @@ public class RecipeServiceImpl implements RecipeService {
 
   @Override
   @Transactional
-  public RecipeCommand findCommandById(Long id) {
-    return recipeToRecipeCommand.convert(findById(id));
+  public RecipeCommand findCommandById(Long l) {
+    return recipeToRecipeCommand.convert(findById(l));
   }
 
   @Override
   @Transactional
   public RecipeCommand saveRecipeCommand(RecipeCommand command) {
-
-    // Takes recipe coming from the frontend.
-    // Coverts that Command to a Model.
     Recipe detachedRecipe = recipeCommandToRecipe.convert(command);
 
-    // Saves the Model detachedRecipe via Repository.
     Recipe savedRecipe = recipeRepository.save(detachedRecipe);
-
-    log.debug("Saved RecipeId: " + savedRecipe.getId());
-
-    // Returns back the the Model Converted to a Command.
+    log.debug("Saved RecipeId:" + savedRecipe.getId());
     return recipeToRecipeCommand.convert(savedRecipe);
   }
 
   @Override
-  public void deleteById(Long id) {
-    recipeRepository.deleteById(id);
+  public void deleteById(Long idToDelete) {
+    recipeRepository.deleteById(idToDelete);
   }
 }

@@ -24,14 +24,19 @@ public class UnitOfMeasureRepositoryIT {
   }
 
   @Test
-  public void findByUnitOfMeasure() throws Exception {
-    Optional<UnitOfMeasure> unitOfMeasure = unitOfMeasureRepository.findByUnitOfMeasure("Teaspoon");
-    assertEquals("Teaspoon", unitOfMeasure.get().getUnitOfMeasure());
+  public void findByDescription() throws Exception {
+
+    Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByUnitOfMeasure("Teaspoon");
+
+    assertEquals("Teaspoon", uomOptional.get().getUnitOfMeasure());
   }
 
   @Test
-  public void findByUnitOfMeasureCup() throws Exception {
-    Optional<UnitOfMeasure> unitOfMeasure = unitOfMeasureRepository.findByUnitOfMeasure("Cup");
-    assertEquals("Cup", unitOfMeasure.get().getUnitOfMeasure());
+  public void findByDescriptionCup() throws Exception {
+
+    Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByUnitOfMeasure("Cup");
+
+    assertEquals("Cup", uomOptional.get().getUnitOfMeasure());
   }
+
 }

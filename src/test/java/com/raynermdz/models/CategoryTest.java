@@ -7,28 +7,27 @@ import static org.junit.Assert.*;
 
 public class CategoryTest {
 
-  Category category;
+  private Category category;
 
   @Before
-  public void setUp() {
+  public void setUp(){
     category = new Category();
   }
 
   @Test
-  public void getId() {
+  public void getId() throws Exception {
+    Long idValue = 4L;
 
-    Long id = 4L;
+    category.setId(idValue);
 
-    category.setId(id);
-
-    assertEquals(id, category.getId());
+    assertEquals(idValue, category.getId());
   }
 
   @Test
-  public void getDescription() {
+  public void getDescription() throws Exception {
   }
 
   @Test
-  public void getRecipes() {
+  public void getRecipes() throws Exception {
   }
 }
